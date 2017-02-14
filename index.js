@@ -21,14 +21,14 @@ module.exports = function() {
     if (this.params.c && this.params.v) {
       var crypto = require('crypto')
         , shasum = crypto.createHash('sha1');
-      shasum.update(`${this.params.c}:EIC:AUTH:${process.env.EIC_SECRET}`);
-      return shasum.digest('hex') == this.params.v && (parseInt(Buffer.from(this.params.c, 'base64')) + 10) * 1000 > new Date().getTime();
+      shasum.update(`${decodeURIComponent(this.params.c)}:EIC:AUTH:${process.env.EIC_SECRET}`);
+      return shasum.digest('hex') == this.params.v && (parseInt(Buffer.from(decodeURIComponent(this.params.c), 'base64')) + 10) * 1000 > new Date().getTime();
     }
     return false;
   };
 
   return function(req, res, next) {
-    req.currentUser = new EicUser(req.session.auth, req.params);
+    req.currentUser = new EicUser(req.session.auth, req.query);
     next();
   }
 }
