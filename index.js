@@ -22,7 +22,7 @@ module.exports = function() {
       var crypto = require('crypto')
         , shasum = crypto.createHash('sha1');
       shasum.update(`${decodeURIComponent(this.params.c)}:EIC:AUTH:${process.env.EIC_SECRET}`);
-      return shasum.digest('hex') == this.params.v && (parseInt(Buffer.from(decodeURIComponent(this.params.c), 'base64')) + 10) * 1000 > new Date().getTime();
+      return shasum.digest('hex') == this.params.v && (parseInt(Buffer.from(decodeURIComponent(this.params.c), 'base64')) + 60) * 1000 > new Date().getTime();
     }
     return false;
   };
