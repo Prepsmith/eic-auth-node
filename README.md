@@ -34,5 +34,6 @@ req.currentUser.issuedAt
 req.currentUser.displayName
 req.currentUser.email
 
-req.currentUser.isSignedIn()
+req.currentUser.isSignedIn() # is signed in by session cookies
+req.currentUser.isVerified() # is signed in by token/signature
 ```
